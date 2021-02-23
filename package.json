@@ -1,6 +1,6 @@
 {
     "name": "babel-plugin-import-simple",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main": "lib/index.js",
     "author": "sunzhibin",
     "license": "MIT",
@@ -33,5 +33,8 @@
         "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.10.3"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@babel/helper-module-imports": "^7.12.13",
+        "@babel/runtime": "^7.13.2"
+    }
 }

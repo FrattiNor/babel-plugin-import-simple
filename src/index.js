@@ -8,7 +8,7 @@ export default function ({ types: t }) {
         visitor: {
             ImportDeclaration: {
                 enter(path, { opts = {} }) {
-                    const { libraryName, libraryDirectory = 'lib', toLowerCase = true } = opts
+                    const { libraryName, libraryDirectory = 'lib', toUnderlineLowerCase = true } = opts
                     const rawValue = path.node.source.value
                     if (rawValue === libraryName) {
                         let haveOther = false
@@ -21,7 +21,7 @@ export default function ({ types: t }) {
                                     type: 'ImportDefaultSpecifier'
                                 }
                                 const newStringLiteral = `${libraryName}/${libraryDirectory}/${
-                                    toLowerCase ? transCamel(imported.name) : imported.name
+                                    toUnderlineLowerCase ? transCamel(imported.name) : imported.name
                                 }`
                                 path.insertAfter(t.importDeclaration([newImportDeclaration], t.stringLiteral(newStringLiteral)))
                             } else {

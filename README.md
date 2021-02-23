@@ -1,25 +1,27 @@
-<h1 align="center">UIK</h1>
+<h1 align="center">babel-plugin-import-simple</h1>
 
-文档位置：https://frattinor.github.io/uik/
+babel 按需加载插件 简易版
 
-### 📦 Install
-
-```
-npm install uik
-```
+### Install
 
 ```
-yarn add uik
+npm install babel-plugin-import-simple --save-dev
 ```
 
-### 🔨 Usage
+`babelrc` 配置
 
 ```
-import { Button, Tooltip } from 'uik';
+{
+  "plugins": [["import-simple", options]]
+}
+```
 
-const App = () => (
-    <Tooltip title="notice text">
-        <Button type="primary">hover me</Button>
-    <Tooltip/>
-);
+### options
+
+```
+{
+  "libraryName": "xxx", // 包名
+  "libraryDirectory": "lib", // 仓库名
+  "toUnderlineLowerCase": true // 转中划线小写
+}
 ```

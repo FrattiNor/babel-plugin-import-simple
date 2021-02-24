@@ -8,7 +8,7 @@ module.exports = function ({ types: t }) {
         visitor: {
             ImportDeclaration: {
                 enter(path, { opts = {} }) {
-                    const { libraryName, libraryDirectory = 'lib', toUnderlineLowerCase = true } = opts
+                    const { libraryName, libraryDirectory = 'lib', toUnderlineLowerCase = true, style = false } = opts
                     const rawValue = path.node.source.value
                     if (rawValue === libraryName) {
                         let haveOther = false
@@ -16,14 +16,18 @@ module.exports = function ({ types: t }) {
                         path.node.specifiers.forEach((item) => {
                             const { type, imported } = item
                             if (type === 'ImportSpecifier') {
-                                const newImportDeclaration = {
+                                const newImportDefaultSpecifier = {
                                     ...item,
                                     type: 'ImportDefaultSpecifier'
                                 }
-                                const newStringLiteral = `${libraryName}/${libraryDirectory}/${
+                                const componentPath = `${libraryName}/${libraryDirectory}/${
                                     toUnderlineLowerCase ? transCamel(imported.name) : imported.name
                                 }`
-                                path.insertAfter(t.importDeclaration([newImportDeclaration], t.stringLiteral(newStringLiteral)))
+                                path.insertAfter(t.importDeclaration([newImportDefaultSpecifier], t.stringLiteral(componentPath)))
+                                if (style) {
+                                    const stylePath = style ? `${componentPath}/style` : `${componentPath}/style/${style}`
+                                    path.insertAfter(t.importDeclaration([], t.stringLiteral(stylePath)))
+                                }
                             } else {
                                 haveOther = true
                             }

@@ -3,7 +3,7 @@ function transCamel(str) {
     return _str.replace(/([A-Z])/g, ($1) => `-${$1.toLowerCase()}`)
 }
 
-export default function ({ types: t }) {
+module.exports = function ({ types: t }) {
     return {
         visitor: {
             ImportDeclaration: {

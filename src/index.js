@@ -25,7 +25,7 @@ module.exports = function ({ types: t }) {
                                 }`
                                 path.insertAfter(t.importDeclaration([newImportDefaultSpecifier], t.stringLiteral(componentPath)))
                                 if (style) {
-                                    const stylePath = style ? `${componentPath}/style` : `${componentPath}/style/${style}`
+                                    const stylePath = style ? `${componentPath}/style` : `${componentPath}/${style}`
                                     path.insertAfter(t.importDeclaration([], t.stringLiteral(stylePath)))
                                 }
                             } else {
